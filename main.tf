@@ -2,6 +2,13 @@ provider "aws" {
   region = local.region
 }
 
+resource "aws_key_pair" "user1" {
+  key_name   = "user1"
+  public_key = file("~/.ssh/user1.pub")
+}
+
+data "aws_availability_zones" "available" {}
+
 ################################################################################
 # Supporting Resources
 ################################################################################
@@ -52,11 +59,10 @@ module "security_groups" {
 # EC2 Instances
 ################################################################################
 
-module "ec2" {
+module "ec2-jenkins" {
   source = "./modules/ec2"
 
-  key_name        = "user1"
-  public_key_path = "~/.ssh/user1.pub"
+  key_name        = aws_key_pair.user1.key_name
   ami_id          = "ami-084568db4383264d4"
   instance_type   = "t2.medium"
   tags = {
@@ -69,16 +75,15 @@ module "ec2" {
       subnet_id                   = module.vpc.public_subnets[0]
       security_group_ids          = [module.security_groups.jenkins.security_group_id]
       associate_public_ip_address = true
-      user_data_path              = "${path.module}/jenkins-user-data.sh"
+      user_data = file("${path.module}/user-data/jenkins-user-data.sh")
     }
   }
 }
 
-module "ec2" {
+module "ec2-gitlab" {
   source = "./modules/ec2"
 
-  key_name        = "user1"
-  public_key_path = "~/.ssh/user1.pub"
+  key_name        = aws_key_pair.user1.key_name
   ami_id          = "ami-084568db4383264d4"
   instance_type   = "t3.medium"
   tags = {
@@ -91,7 +96,20 @@ module "ec2" {
       subnet_id                   = module.vpc.public_subnets[1]
       security_group_ids          = [module.security_groups.gitlab.security_group_id]
       associate_public_ip_address = true
-      user_data_path              = "${path.module}/gitlab-user-data.sh"
+      user_data = file("${path.module}/user-data/gitlab-user-data.sh")
+
+/*      ebs_block_device = {
+        volume_size = "30"
+        volume_type = "gp3" # or "gp2" depending on what you prefer
+      } */
+
+      root_block_device = [
+        {
+          volume_size = 30
+          volume_type = "gp3"
+          delete_on_termination = true
+        }
+      ]
     }
   }
 }

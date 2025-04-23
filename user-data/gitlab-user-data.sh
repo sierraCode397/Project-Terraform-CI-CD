@@ -59,13 +59,15 @@ services:
 EOF
 
 # Start GitLab container
-cd /srv/gitlab
-sudo docker compose up -d
+(cd /srv/gitlab && sudo docker compose up -d)
 
 # Allow firewall access
 sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 sudo ufw allow 2424/tcp
+
+echo "Waiting for GitLab to generate initial password..."
+sleep 20
 
 echo "GitLab installation completed successfully!"
 

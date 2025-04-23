@@ -3,15 +3,45 @@ variable "key_name" {
   type        = string
 }
 
-variable "public_key_path" {
-  description = "Local path to the SSH public key for the key pair."
-  type        = string
-}
-
 variable "ami_id" {
   description = "The AMI ID to launch for each EC2 instance."
   type        = string
 }
+
+variable "root_block_device" {
+  description = "root_block_device volume configuration."
+  type = list(object({
+    device_name           = string
+    volume_size           = number
+    volume_type           = string
+    delete_on_termination = optional(bool, true)
+  }))
+  default = [
+    {
+      device_name           = "/dev/xvda"
+      volume_size           = 30
+      volume_type           = "gp3"
+      delete_on_termination = true
+    }
+  ]
+}
+
+/* variable "ebs_block_device" {
+  description = "EBS volume configuration."
+  type = list(object({
+    device_name           = string
+    volume_size           = number
+    volume_type           = string
+    delete_on_termination = optional(bool, true)
+  }))
+  default = [
+    {
+      device_name = "/dev/xvda"
+      volume_size = 8
+      volume_type = "gp3"
+    }
+  ]
+} */
 
 variable "instance_type" {
   description = "The EC2 instance type (e.g. t2.micro, t2.medium)."
@@ -43,7 +73,7 @@ EOF
     subnet_id                   = string
     security_group_ids          = list(string)
     associate_public_ip_address = bool
-    user_data_path              = optional(string)
+    user_data                   = optional(string)
   }))
 
   # Example default—remove or override in your root module

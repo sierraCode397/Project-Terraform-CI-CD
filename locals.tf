@@ -1,5 +1,5 @@
 locals {
-  name   = "complete-mysql"
+  name   = "DevOps"
   region = "us-east-1"
 
   vpc_cidr = "10.0.0.0/16"
@@ -36,7 +36,7 @@ locals {
           to_port     = 8080
           protocol    = "tcp"
           description = "Jenkins web interface"
-          cidr_blocks = ["0.0.0.0/0"]
+          cidr_blocks = "0.0.0.0/0"
         },
         # Jenkins agent (JNLP) port
         {
@@ -44,7 +44,7 @@ locals {
           to_port     = 50000
           protocol    = "tcp"
           description = "Jenkins agent JNLP port"
-          cidr_blocks = ["0.0.0.0/0"]
+          cidr_blocks = "0.0.0.0/0"
         }
       ]
       egress = [
@@ -66,6 +66,13 @@ locals {
           to_port     = 2424
           protocol    = "tcp"
           description = "SSH access (custom port)"
+          cidr_blocks = "0.0.0.0/0"
+        },
+        {
+          from_port   = 22
+          to_port     = 22
+          protocol    = "tcp"
+          description = "SSH access"
           cidr_blocks = "0.0.0.0/0"
         },
         {
