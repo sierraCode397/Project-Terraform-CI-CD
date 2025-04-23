@@ -32,41 +32,6 @@ sudo apt-get install -y docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING 
 sudo systemctl enable docker
 sudo systemctl restart docker
 
-# Create GitLab directory
-sudo mkdir -p /srv/gitlab/
-sudo chown -R $USER:$USER /srv/gitlab
+# Create a docker container with jenkins 
+sudo docker run --rm --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:2.303.1-jdk11
 
-# Create docker-compose.yml file for GitLab
-cat <<EOF | sudo tee /srv/gitlab/docker-compose.yml
-services:
-  gitlab:
-    image: gitlab/gitlab-ce
-    container_name: gitlab
-    restart: always
-    hostname: 'gitlab.isaac.com'
-    environment:
-      GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://localhost:80'
-        gitlab_rails['gitlab_shell_ssh_port'] = 2424
-    ports:
-      - '80:80'    # HTTP port
-      - '443:443'      # HTTPS port
-      - '2424:22'      # SSH port
-    volumes:
-      - '/srv/gitlab/config:/etc/gitlab'
-      - '/srv/gitlab/logs:/var/log/gitlab'
-      - '/srv/gitlab/data:/var/opt/gitlab'
-EOF
-
-# Start GitLab container
-cd /srv/gitlab
-sudo docker compose up -d
-
-# Allow firewall access
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
-sudo ufw allow 2424/tcp
-
-echo "GitLab installation completed successfully!"
-
-sudo cat /srv/gitlab/config/initial_root_password
