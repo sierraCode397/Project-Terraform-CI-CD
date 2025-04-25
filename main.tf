@@ -64,7 +64,7 @@ module "ec2-jenkins" {
 
   key_name        = aws_key_pair.user1.key_name
   ami_id          = "ami-084568db4383264d4"
-  instance_type   = "t2.medium"
+  instance_type   = "t3.medium"
   tags = {
     Environment = "prod"
     Owner       = "team-a"
@@ -84,7 +84,7 @@ module "ec2-gitlab" {
   source = "./modules/ec2"
 
   key_name        = aws_key_pair.user1.key_name
-  ami_id          = "ami-084568db4383264d4"
+  ami_id          = "ami-0c15e602d3d6c6c4a"
   instance_type   = "t3.medium"
   tags = {
     Environment = "prod"

@@ -59,6 +59,5 @@ services:
       - '$GITLAB_HOME/config:/etc/gitlab'
       - '$GITLAB_HOME/logs:/var/log/gitlab'
       - '$GITLAB_HOME/data:/var/opt/gitlab'
-    shm_size: '256m'
 
 "This configuration is the same as using --publish 8929:8929 --publish 2424:22."

@@ -33,5 +33,5 @@ sudo systemctl enable docker
 sudo systemctl restart docker
 
 # Create a docker container with jenkins 
-sudo docker run --rm --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:2.303.1-jdk11
+sudo docker run --rm --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins
 

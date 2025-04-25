@@ -32,6 +32,33 @@ sudo apt-get install -y docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING 
 sudo systemctl enable docker
 sudo systemctl restart docker
 
-# Create a docker container with jenkins 
-sudo docker run --rm --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:2.303.1-jdk11
+# Create docker-compose.yml file for Jenkins
+cat <<EOF | sudo tee /home/ubuntu/docker-compose.yml
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    container_name: jenkins
+    ports:
+      - '8080:8080'    # HTTP port
+    volumes:
+      - jenkins-vol:/var/jenkins_home
+volumes:
+  jenkins-vol:
+    driver: local
+EOF
+
+# Start Jenkins container
+(cd /home/ubuntu/ && sudo docker compose up -d)
+
+# Allow firewall access
+sudo ufw allow 8080/tcp
+sudo ufw allow 50000/tcp
+sudo ufw allow 22/tcp
+
+echo "Waiting for GitLab to generate initial password..."
+sleep 20
+
+echo "Jenkins installation completed successfully!"
+
+sudo docker exec -it jenkins bash -c 'cat "${JENKINS_HOME:-/var/jenkins_home}"/secrets/initialAdminPassword'
 

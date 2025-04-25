@@ -6,3 +6,69 @@ terraform init
 terraform plan
 
 terraform apply
+
+#Gitlab and jenkins
+
+ssh -i "~/.ssh/user1.pem" ubuntu@
+
+# Gitlab
+sudo cat /srv/gitlab/config/initial_root_password
+
+# Creating (and therefore “registering”) a new repo via the CLI
+docker exec -it gitlab bash
+gitlab-rails runner "Project.create!(name: 'my-repo', namespace_id: Namespace.find_by(path: 'root').id)"
+
+# OR
+
+curl --request POST "http://localhost/api/v4/projects" \
+  --header "PRIVATE-TOKEN: <your_token>" \
+  --form "name=my-repo" \
+  --form "namespace_id=1"
+
+
+curl http://localhost:80
+
+"Set SSH key.pub on gitlab"
+
+> Create repository and:
+ git branch -m master main
+ git add .
+ git commit -m "Initial commit"
+ git remote set-url origin ssh://git@Your_IP_OF_instance:2424/Your_User_gitlab/your_repository_name.git
+ git push --set-upstream origin main
+
+--- Confirm SSH is using the right private key ---
+
+netstat -tln
+
+ssh-add ~/.ssh/id_rsa
+
+ssh-add -l
+
+ssh -T -p 2424 git@<Your public ip pf the instance>
+
+# OPTIONAL
+
+Edit ~/.ssh/config
+Host gitlab-local
+  HostName Your_IP_OF_instance
+  Port 2424
+  User git
+  IdentityFile ~/.ssh/id_rsa      # or ~/.ssh/gitlab, whichever you loaded
+  IdentitiesOnly yes
+
+git remote set-url origin git@gitlab-remote:root/ci-cd-gitlab.git
+
+
+---- Inside gitlab ----
+
+IMPORTAN: cat /var/opt/gitlab/.ssh/authorized_keys
+
+gitlab-ctl reconfigure
+gitlab-ctl restart sshd
+
+
+
+
+# Jenkins
+sudo docker exec -it jenkins bash -c 'cat "${JENKINS_HOME:-/var/jenkins_home}"/secrets/initialAdminPassword'

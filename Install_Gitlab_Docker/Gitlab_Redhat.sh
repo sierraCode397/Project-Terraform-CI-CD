@@ -20,7 +20,7 @@ sudo yum install -y docker-ce docker-ce-cli
 # Start and enable Docker
 sudo systemctl start docker
 sudo systemctl enable docker
-sudo systemctl status docker
+sudo systemctl restart docker
 
 # Create GitLab directory
 sudo mkdir -p /srv/gitlab/config /srv/gitlab/logs /srv/gitlab/data
@@ -36,7 +36,7 @@ services:
     hostname: 'gitlab.isaac.com'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://localhost:80'
+        external_url 'https://3.230.127.31/'
         gitlab_rails['gitlab_shell_ssh_port'] = 2424
     ports:
       - '80:80'    # HTTP port
@@ -49,11 +49,16 @@ services:
 EOF
 
 # Start GitLab container
-cd /srv/gitlab
-sudo docker compose up -d
+(cd /srv/gitlab && sudo docker compose up -d)
+
 
 # Allow firewall access
+sudo dnf install firewalld -y
+sudo systemctl enable firewalld
+sudo systemctl start firewalld
+
 sudo firewall-cmd --add-port=80/tcp --permanent
+sudo firewall-cmd --add-port=22/tcp --permanent
 sudo firewall-cmd --add-port=443/tcp --permanent
 sudo firewall-cmd --add-port=2424/tcp --permanent
 sudo firewall-cmd --reload
