@@ -1,46 +1,48 @@
 #!/bin/bash
 
-echo "Script started" > /home/ec2-user/debug.log 
+echo "Script started" >> /home/ec2-user/debug.log 
+
+whoami >> /home/ec2-user/debug.log 
 
 # Update system
-sudo dnf update -y
+dnf update -y 
 
-echo "2" > /home/ec2-user/debug.log 
+echo "2" >> /home/ec2-user/debug.log 
 
 # Install dependencies
-sudo yum install -y yum-utils
+yum install -y yum-utils
 
-echo "3" > /home/ec2-user/debug.log 
+echo "3" >> /home/ec2-user/debug.log 
 
 # Add Docker repository
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-echo "4" > /home/ec2-user/debug.log 
+echo "4" >> /home/ec2-user/debug.log 
 
 # Install containerd manually (compatible with RHEL 9)
-sudo yum install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.6.33-3.1.el7.x86_64.rpm -y
+yum install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.6.33-3.1.el7.x86_64.rpm -y
 
-echo "5" > /home/ec2-user/debug.log 
+echo "5" >> /home/ec2-user/debug.log 
 
 # Install Docker
-sudo yum install -y docker-ce docker-ce-cli
+yum install -y docker-ce docker-ce-cli
 
-echo "6" > /home/ec2-user/debug.log 
+echo "6" >> /home/ec2-user/debug.log 
 
 # Start and enable Docker
-sudo systemctl enable docker
-sudo systemctl restart docker
+systemctl enable docker
+systemctl restart docker
 
-echo "7" > /home/ec2-user/debug.log 
+echo "7" >> /home/ec2-user/debug.log 
 
 # Create GitLab directory
-sudo mkdir -p /srv/gitlab/config /srv/gitlab/logs /srv/gitlab/data
-sudo chown -R $USER:$USER /srv/gitlab
+mkdir -p /srv/gitlab/config /srv/gitlab/logs /srv/gitlab/data
+chown -R $USER:$USER /srv/gitlab
 
-echo "8" > /home/ec2-user/debug.log 
+echo "8" >> /home/ec2-user/debug.log 
 
 # Create docker-compose.yml file for GitLab
-cat <<EOF | sudo tee /srv/gitlab/docker-compose.yml
+cat <<EOF | tee /srv/gitlab/docker-compose.yml
 services:
   gitlab:
     image: gitlab/gitlab-ce
@@ -74,10 +76,10 @@ services:
       - '/srv/gitlab/data:/var/opt/gitlab:z'
 EOF
 
-echo "9" > /home/ec2-user/debug.log 
+echo "9" >> /home/ec2-user/debug.log 
 
 # Start GitLab container
-(cd /srv/gitlab && sudo docker compose up -d)
+(cd /srv/gitlab && docker compose up -d)
 
 # sudo docker exec -it gitlab bash
 # sudo gitlab-ctl stop
@@ -90,24 +92,24 @@ echo "9" > /home/ec2-user/debug.log
 
 # sudo docker stats
 
-echo "10" > /home/ec2-user/debug.log 
+echo "10" >> /home/ec2-user/debug.log 
 
 # Allow firewall access
-sudo dnf install firewalld -y
+dnf install firewalld -y
 
-echo "11" > /home/ec2-user/debug.log 
+echo "11" >> /home/ec2-user/debug.log 
 
-sudo systemctl enable firewalld
-sudo systemctl start firewalld
+systemctl enable firewalld
+systemctl start firewalld
 
-echo "12" > /home/ec2-user/debug.log 
+echo "12" >> /home/ec2-user/debug.log 
 
-sudo firewall-cmd --add-port=80/tcp --permanent
-sudo firewall-cmd --add-port=22/tcp --permanent
-sudo firewall-cmd --add-port=443/tcp --permanent
-sudo firewall-cmd --add-port=2424/tcp --permanent
-sudo firewall-cmd --reload
+firewall-cmd --add-port=80/tcp --permanent
+firewall-cmd --add-port=22/tcp --permanent
+firewall-cmd --add-port=443/tcp --permanent
+firewall-cmd --add-port=2424/tcp --permanent
+firewall-cmd --reload
 
-echo "13" > /home/ec2-user/debug.log 
+echo "13" >> /home/ec2-user/debug.log 
 
-echo "GitLab installation completed successfully!"
+echo "GitLab installation completed successfully!" >> /home/ec2-user/debug.log 
