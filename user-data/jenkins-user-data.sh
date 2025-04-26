@@ -32,16 +32,37 @@ sudo apt-get install -y docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING 
 sudo systemctl enable docker
 sudo systemctl restart docker
 
+# Create Dockerfile file for Jenkins
+cat <<EOF | sudo tee /home/ubuntu/Dockerfile
+# Dockerfile
+FROM jenkins/jenkins:lts-jdk17
+
+USER root
+RUN apt-get update \
+ && apt-get install -y wget unzip openssh-client \
+ && wget https://releases.hashicorp.com/terraform/1.7.2/terraform_1.7.2_linux_amd64.zip \
+ && unzip terraform_1.7.2_linux_amd64.zip -d /usr/local/bin \
+ && rm terraform_1.7.2_linux_amd64.zip \
+ && curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
+USER jenkins
+
+EOF
+
 # Create docker-compose.yml file for Jenkins
 cat <<EOF | sudo tee /home/ubuntu/docker-compose.yml
 services:
   jenkins:
-    image: jenkins/jenkins:lts-jdk17
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: jenkins
+    user: root
     ports:
-      - '8080:8080'    # HTTP port
+      - '8080:8080'
     volumes:
       - jenkins-vol:/var/jenkins_home
+
 volumes:
   jenkins-vol:
     driver: local

@@ -1,5 +1,5 @@
-export AWS_ACCESS_KEY_ID=AKIAX4OVLTJ2MATBN47E
-export AWS_SECRET_ACCESS_KEY=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
+export AWS_ACCESS_KEY_ID=AKIAX4OVLTJ2H3BT2VW3
+export AWS_SECRET_ACCESS_KEY=eu3TvqAYirfwLz1hcestsoYatbjvf621aDtUYKTK
 
 terraform init
 
@@ -45,6 +45,8 @@ ssh-add ~/.ssh/id_rsa
 
 ssh-add -l
 
+git remote remove origin
+
 ssh -T -p 2424 git@<Your public ip pf the instance>
 
 # OPTIONAL
@@ -64,11 +66,37 @@ git remote set-url origin git@gitlab-remote:root/ci-cd-gitlab.git
 
 IMPORTAN: cat /var/opt/gitlab/.ssh/authorized_keys
 
-gitlab-ctl reconfigure
-gitlab-ctl restart sshd
-
-
+Insertions: Jenkins
 
 
 # Jenkins
 sudo docker exec -it jenkins bash -c 'cat "${JENKINS_HOME:-/var/jenkins_home}"/secrets/initialAdminPassword'
+
+Pluggins: gitlab, azure credentials, azure cli, azure key
+
+Data:
+SUBSCRIPTION_ID: fd375dc1-3773-4143-8e91-347b28916b2f
+Client_id: bae66751-5d92-4a75-afb4-5afb874d7cf1
+Client_secret: q_08Q~vFsJO~wkqGbNGzdmV.atiXU6zl7ms6mbOd
+Tenant_id: 5b9d6221-8f51-46f3-8c0e-fb83ff1418d6
+
+curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/azure-cli.list'
+rm microsoft.gpg
+
+sudo apt-get update
+sudo apt-get install azure-cli
+
+az login --tenant 5b9d6221-8f51-46f3-8c0e-fb83ff1418d6
+
+#!/bin/bash
+
+KEYVAULT_NAME="terraform123"  # 🔁 change this
+
+export ARM_CLIENT_ID=$(az keyvault secret show --vault-name $KEYVAULT_NAME --name "ARM-CLIENT-ID" --query value -o tsv)
+export ARM_CLIENT_SECRET=$(az keyvault secret show --vault-name $KEYVAULT_NAME --name "ARM-CLIENT-SECRET" --query value -o tsv)
+export ARM_SUBSCRIPTION_ID=$(az keyvault secret show --vault-name $KEYVAULT_NAME --name "ARM-SUBSCRIPTION-ID" --query value -o tsv)
+export ARM_TENANT_ID=$(az keyvault secret show --vault-name $KEYVAULT_NAME --name "ARM-TENANT-ID" --query value -o tsv)
+
+echo "✅ Azure credentials loaded from Key Vault."
