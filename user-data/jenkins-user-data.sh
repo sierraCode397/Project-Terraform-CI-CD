@@ -32,6 +32,7 @@ sudo apt-get install -y docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING 
 sudo systemctl enable docker
 sudo systemctl restart docker
 
+
 # Create Dockerfile file for Jenkins
 cat <<EOF | sudo tee /home/ubuntu/Dockerfile
 # Dockerfile
@@ -43,10 +44,15 @@ RUN apt-get update \
  && wget https://releases.hashicorp.com/terraform/1.7.2/terraform_1.7.2_linux_amd64.zip \
  && unzip terraform_1.7.2_linux_amd64.zip -d /usr/local/bin \
  && rm terraform_1.7.2_linux_amd64.zip \
- && curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+ && curl -sL https://aka.ms/InstallAzureCLIDeb | bash \
+ && rm -rf /var/lib/apt/lists/*
 
+# Switch back to the jenkins user for plugin install
 USER jenkins
 
+# Copy plugin list and install
+#COPY --chown=jenkins:jenkins plugins.txt /usr/share/jenkins/ref/plugins.txt
+#RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
 EOF
 
 # Create docker-compose.yml file for Jenkins
@@ -60,6 +66,9 @@ services:
     user: root
     ports:
       - '8080:8080'
+    environment:
+     
+
     volumes:
       - jenkins-vol:/var/jenkins_home
 
@@ -83,3 +92,4 @@ echo "Jenkins installation completed successfully!"
 
 sudo docker exec -it jenkins bash -c 'cat "${JENKINS_HOME:-/var/jenkins_home}"/secrets/initialAdminPassword'
 
+# wget http://98.83.135.0:8080/jnlpJars/jenkins-cli.jar

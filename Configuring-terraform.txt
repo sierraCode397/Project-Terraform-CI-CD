@@ -1,5 +1,5 @@
-export AWS_ACCESS_KEY_ID=AKIAX4OVLTJ2H3BT2VW3
-export AWS_SECRET_ACCESS_KEY=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
+export AWS_ACCESS_KEY_ID=AKIA324SXZ3XGRFZXNF4
+export AWS_SECRET_ACCESS_KEY=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
 
 terraform init
 
@@ -80,6 +80,13 @@ Client_id: bae66751-5d92-4a75-afb4-5afb874d7cf1
 Client_secret: q_08Q~vFsJO~wkqGbNGzdmV.atiXU6zl7ms6mbOd
 Tenant_id: 5b9d6221-8f51-46f3-8c0e-fb83ff1418d6
 
+wget http://<JENKINS_URL>/jnlpJars/jenkins-cli.jar
+
+sudo docker exec jenkins env | grep -E 'SUBSCRIPTION_ID|CLIENT_ID|CLIENT_SECRET|TENANT_ID'
+
+
+---- Using az local ----
+
 curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
 sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/azure-cli.list'
@@ -88,7 +95,7 @@ rm microsoft.gpg
 sudo apt-get update
 sudo apt-get install azure-cli
 
-az login --tenant 5b9d6221-8f51-46f3-8c0e-fb83ff1418d6
+az login --tenant 5b9d6221-8f51-46f3-8c0e-fb83ff1418d6 --use-device-code
 
 #!/bin/bash
 
@@ -100,3 +107,153 @@ export ARM_SUBSCRIPTION_ID=$(az keyvault secret show --vault-name $KEYVAULT_NAME
 export ARM_TENANT_ID=$(az keyvault secret show --vault-name $KEYVAULT_NAME --name "ARM-TENANT-ID" --query value -o tsv)
 
 echo "✅ Azure credentials loaded from Key Vault."
+
+
+GitLab
+Version
+1.9.8
+Build Triggers
+This plugin allows GitLab to trigger Jenkins builds and display their results in the GitLab UI.
+
+--- Stages ----
+
+# Stage 1
+
+Suscription of azure 
+
+Create a resource group just 1 (For the secrets and backend of terraform)
+Storage account
+KEYVAULT
+
+In entra ID create a APP_registration (Service Principal)
+In SUBSCRIPTION Levele assing the roles (Log Analytics Contributor Microsoft Sentinel Contributo) to service Principal
+
+Save the values in the key_value:
+
+SUBSCRIPTION_ID:
+Client_id: 
+Client_secret:
+Tenant_id: 
+
+In local machine install azure CLI and you log in 
+
+Recover the values from key vault to you local machine
+
+Set the backend of the terraform code in the storage account
+Create a new resource group with the workspace and onboarding workspace with some analytic rules inside (Runninf a local terraform)
+
+# Stage 2
+
+Run and up a VPC with two instances for Jenkins and gitlab 
+
+Install Docker in each of the instances 
+
+Use an image of gitlab in a t3.medium instance 
+
+Use an image of jenkins in the other instance (t3.small) and install terraform in the docker compose
+
+# Stage 3
+
+Configure Gitlab, create a repository 
+
+Set the SSH key pub
+
+Create Gitlab API Token 
+
+Configure integration tool of jenkins with the name of the job and the URL of the jenkins server
+
+# Stage 4
+
+Configure Jenkins, install 4 Pluggins: gitlab, azure credentials, azure cli, azure key
+
+Setting some credential: azure_keyvault, gitlab repo and gitlab account
+
+Configure the integration with gitlab using the plugin
+
+Get the secrets of the Azure Key_vault
+
+Confirm connection with gitlab
+
+Create a Job for the repo and a Jenkinsfile
+
+# Stage 5 
+
+Configure the acces to the repo in gitlab (Using git)
+
+Upload you code from your local machine to the repo in gitlab 
+
+See the results
+
+
+
+
+          - string:
+              scope: GLOBAL
+              id: "gitlab-token-id"
+              secret: "glpat-jmZh7mLQmMEdMe6E_SkQ"
+              description: "GitLab API Token"
+
+
+          - com.microsoft.azure.util.AzureCredentials:
+              scope: GLOBAL
+              id: "azure-sp-credentials"
+              description: "Azure Service Principal for deployments"
+              subscriptionId: "fd375dc1-3773-4143-8e91-347b28916b2f"
+              clientId:       "bae66751-5d92-4a75-afb4-5afb874d7cf1"
+              clientSecret:   "q_08Q~vFsJO~wkqGbNGzdmV.atiXU6zl7ms6mbOd"
+              tenant:         "5b9d6221-8f51-46f3-8c0e-fb83ff1418d6"
+              azureEnvironmentName: "Azure"
+
+unclassified:
+  gitLabConnectionConfig:
+    connections:
+      - name: "GitLabConnection"
+        url: "http://44.199.229.236/"
+        credentialsId: "gitlab-token-id"
+        ignoreCertificateErrors: false
+        connectionTimeout: 10
+
+
+
+
+        cat <<EOF | sudo tee /home/ubuntu/plugins.txt
+# Required dependencies
+configuration-as-code:1958.vddc0d369b_e16
+eddsa-api:0.3.0.1-19.vc432d923e5ee
+mina-sshd-api-common:2.15.0-161.vb_200831a_c15b_
+mina-sshd-api-core:2.15.0-161.vb_200831a_c15b_
+
+# Git plugins
+git-client:6.1.3
+git:5.7.0
+gitlab-plugin:1.9.8
+
+# SSH support
+ssh-slaves
+
+# Azure plugins
+azure-credentials
+azure-cli
+azure-keyvault
+
+EOF
+
+
+cat <<EOF | sudo tee /home/ubuntu/jenkins.yaml
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: gitlab-root-credentials
+              username: root
+              password: glpat-jmZh7mLQmMEdMe6E_SkQ
+              description: "GitLab root user credentials"
+
+EOF
+
+      - ./jenkins.yaml:/var/jenkins_home/jenkins.yaml:ro 
+
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false -Djava.util.logging.config.file=/var/jenkins_home/log.properties
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yaml

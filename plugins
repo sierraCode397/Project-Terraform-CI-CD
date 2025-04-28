@@ -1,0 +1,593 @@
+Ant Plugin
+Version513.vde9e7b_a_0da_0f
+Adds Apache Ant support to Jenkins
+Report an issue with this plugin
+
+
+Apache HttpComponents Client 4.x API Plugin
+Version4.5.14-269.vfa_2321039a_83
+Bundles Apache HttpComponents Client 4.x and allows it to be used by Jenkins plugins.
+Report an issue with this plugin
+
+
+ASM API Plugin
+Version9.8-135.vb_2239d08ee90
+This plugin provides the ASM APIs (v9.8) for other plugins.
+Report an issue with this plugin
+
+
+Azure CLI Plugin
+Version0.9
+This plugin is a sample to explain how to write a Jenkins plugin.
+Report an issue with this plugin
+
+
+Azure Credentials
+Version357.v6447d38fb_007
+Manage Azure credentials using Jenkins Credentials API
+Report an issue with this plugin
+
+
+Azure Key Vault Plugin
+Version282.v43b_691a_13d19
+Azure Key Vault integration, provides a build wrapper, declarative pipeline step, credential provider and configuration-as-code integration.
+Report an issue with this plugin
+
+
+Azure SDK API Plugin
+Version211.vd3b_6c5504331
+Exposes the Azure SDK for Java to other Jenkins plugins.
+Report an issue with this plugin
+
+
+Bootstrap 5 API Plugin
+Version5.3.3-2
+Provides Bootstrap 5 for Jenkins Plugins. Bootstrap is (according to their self-perception) the world's most popular front-end component library to build responsive, mobile-first projects on the web.
+Report an issue with this plugin
+
+
+bouncycastle API Plugin
+Version2.30.1.80-256.vf98926042a_9b_
+This plugin provides a stable API to Bouncy Castle related tasks.
+Report an issue with this plugin
+
+
+Branch API Plugin
+Version2.1217.v43d8b_b_d8b_2c7
+This plugin provides an API for multiple branch based projects.
+Report an issue with this plugin
+
+
+Build Timeout
+Version1.38
+This plugin allows you to automatically terminate a build if it's taking too long.
+Report an issue with this plugin
+
+
+Caffeine API Plugin
+Version3.2.0-166.v72a_6d74b_870f
+Caffeine api plugin for use by other Jenkins plugins.
+Report an issue with this plugin
+
+
+Checks API plugin
+Version370.vb_61a_c57328f3
+This plugin defines an API for Jenkins to publish checks to SCM platforms.
+Report an issue with this plugin
+
+
+Command Agent Launcher Plugin
+Version123.v37cfdc92ef67
+Allows agents to be launched using a specified command.
+Report an issue with this plugin
+
+
+commons-lang3 v3.x Jenkins API Plugin
+Version3.17.0-87.v5cf526e63b_8b_
+Jenkins Api Plugin that Bundles Apache Commons Lang v3.x.
+Usage will slim downstream plugin and not require dependency jar being provided by core Jenkins.
+Provides org.apache.commons:commons-lang3:3.17.0.
+Report an issue with this plugin
+
+
+commons-text API Plugin
+Version1.13.0-153.v91dcd89e2a_22
+Jenkins Api Plugin that Bundles Apache Commons Text v1.x.
+Usage will slim downstream plugin.
+Provides org.apache.commons:commons-text:1.13.0.
+Report an issue with this plugin
+
+
+Credentials Binding Plugin
+Version687.v619cb_15e923f
+Allows credentials to be bound to environment variables for use from miscellaneous build steps.
+Report an issue with this plugin
+
+
+Credentials Plugin
+Version1415.v831096eb_5534
+This plugin allows you to store credentials in Jenkins.
+Report an issue with this plugin
+
+
+Dark Theme
+Version524.vd675b_22b_30cb_
+Adds a dark theme to Jenkins, respecting browser and OS themes if configured.
+Report an issue with this plugin
+
+
+Display URL API
+Version2.209.v582ed814ff2f
+Provides the DisplayURLProvider extension point to provide alternate URLs for use in notifications.
+Report an issue with this plugin
+
+
+Durable Task Plugin
+Version587.v84b_877235b_45
+Library offering an extension point for processes which can run outside of Jenkins yet be monitored.
+Report an issue with this plugin
+
+
+ECharts API Plugin
+Version5.6.0-4
+Provides ECharts for Jenkins Plugins, a JavaScript visualization tool to create intuitive, interactive, and highly-customizable charts.
+Report an issue with this plugin
+
+
+EDDSA API Plugin
+Version0.3.0.1-19.vc432d923e5ee
+EDDSA api plugin for use by other Jenkins plugins.
+Note:Modern (> 15) JDK variants natively support EdDSA signatures via JCE but some libraries still target JDK 11 and have a need of this library.
+Report an issue with this plugin
+
+
+Email Extension Plugin
+Version1876.v28d8d38315b_d
+This plugin is a replacement for Jenkins's email publisher. It allows to configure every aspect of email notifications: when an email is sent, who should receive it and what the email says
+Report an issue with this plugin
+
+
+Folders Plugin
+Version6.1012.v79a_86a_1ea_c1f
+This plugin allows users to create "folders" to organize jobs. Users can define custom taxonomies (like by project type, organization type etc). Folders are nestable and you can define views within folders. Maintained by CloudBees, Inc.
+Report an issue with this plugin
+
+
+Font Awesome API Plugin
+Version6.7.2-1
+Provides Font Awesome 6 for Jenkins Plugins. Font Awesome has vector icons and social logos. It is the web's most popular icon set and toolkit with more than 1700 free icons.
+Report an issue with this plugin
+
+
+Git client plugin
+Version6.1.3
+Utility plugin for Git support in Jenkins
+Report an issue with this plugin
+
+
+Git plugin
+Version5.7.0
+This plugin integrates Git with Jenkins.
+Report an issue with this plugin
+
+
+GitHub API Plugin
+Version1.321-488.v9b_c0da_9533f8
+This plugin provides GitHub API for other plugins.
+Report an issue with this plugin
+
+
+GitHub Branch Source Plugin
+Version1815.v9152b_2ff7a_1b_
+Multibranch projects and organization folders from GitHub. Maintained by CloudBees, Inc.
+Report an issue with this plugin
+
+
+GitHub plugin
+Version1.43.0
+This plugin integrates GitHub to Jenkins.
+Report an issue with this plugin
+
+
+GitLab Plugin
+Version1.9.8
+This plugin allows GitLab to trigger Jenkins builds and display their results in the GitLab UI.
+Report an issue with this plugin
+
+
+Gradle Plugin
+Version2.14.1
+This plugin allows Jenkins to invoke Gradle build scripts directly.
+Report an issue with this plugin
+
+
+Gson API Plugin
+Version2.13.1-139.v4569c2ef303f
+This plugin provides the Gson APIs (v2.13.1) for other plugins.
+Report an issue with this plugin
+
+
+Instance Identity
+Version203.v15e81a_1b_7a_38
+Maintains an RSA key pair that can serve as a foundation of authentication when communicating with Jenkins
+Report an issue with this plugin
+
+
+Ionicons API
+Version82.v0597178874e1
+Provides Ionicons for Jenkins Plugins, internally known as "symbols".
+Check out the design-library how to use ionicons in your plugin.
+Report an issue with this plugin
+
+
+Jackson 2 API Plugin
+Version2.18.3-402.v74c4eb_f122b_2
+This plugin exposes the Jackson 2 JSON APIs to other Jenkins plugins.
+Report an issue with this plugin
+
+
+Jakarta Activation API
+Version2.1.3-2
+This plugin provides the Jakarta Activation API for other plugins.
+Report an issue with this plugin
+
+
+Jakarta Mail API
+Version2.1.3-2
+This plugin provides the Jakarta Mail API for other plugins.
+Report an issue with this plugin
+
+
+Java JSON Web Token (JJWT) Plugin
+Version0.11.5-120.v0268cf544b_89
+Bundles the Java JSON Web Token (JJWT) library.
+Report an issue with this plugin
+
+
+JavaBeans Activation Framework (JAF) API
+Version1.2.0-8
+This plugin provides the JavaBeans Activation Framework (JAF) API for other plugins.
+Report an issue with this plugin
+
+
+JavaMail API
+Version1.6.2-11
+This plugin provides the JavaMail API for other plugins.
+Report an issue with this plugin
+
+
+JAXB plugin
+Version2.3.9-133.vb_ec76a_73f706
+JAXB packaging for more transparent Java 9+ compatibility
+Report an issue with this plugin
+This plugin is up for adoption! We are looking for new maintainers. Visit our Adopt a Plugin initiative for more information.
+
+
+Jersey 2 API
+Version2.45-154.v4ded3dc34f81
+This plugin provides the JAX-RS 2.1 and Jersey 2 APIs for other plugins.
+Report an issue with this plugin
+
+
+Joda Time API Plugin
+Version2.14.0-127.v7d9da_295a_d51
+This plugin provides the Joda Time APIs (v2.14.0) for other plugins.
+Report an issue with this plugin
+
+
+JQuery3 API Plugin
+Version3.7.1-3
+Provides jQuery 3 for Jenkins Plugins. jQuery is a fast, small, and feature-rich JavaScript library.
+Report an issue with this plugin
+
+
+JSON Api Plugin
+Version20250107-125.v28b_a_ffa_eb_f01
+This plugin provides the JSON APIs (v20250107) for other plugins.
+Report an issue with this plugin
+
+
+JSON Path API Plugin
+Version2.9.0-148.v22a_7ffe323ce
+This plugin provides the JSON Path APIs (v2.9.0) for other plugins.
+Report an issue with this plugin
+
+
+JUnit Plugin
+Version1322.v1556dc1c59a_f
+Allows JUnit-format test results to be published.
+Report an issue with this plugin
+
+
+LDAP Plugin
+Version780.vcb_33c9a_e4332
+Adds LDAP authentication to Jenkins
+Report an issue with this plugin
+
+
+Mailer Plugin
+Version489.vd4b_25144138f
+This plugin allows you to configure email notifications for build results.
+Report an issue with this plugin
+
+
+Matrix Authorization Strategy Plugin
+Version3.2.6
+Offers matrix-based security authorization strategies (global and per-project).
+Report an issue with this plugin
+
+
+Matrix Project Plugin
+Version849.v0cd64ed7e531
+Multi-configuration (matrix) project type.
+Report an issue with this plugin
+
+
+Metrics Plugin
+Version4.2.30-471.v55fa_495f2b_f5
+This plugin exposes the Metrics API to Jenkins plugins.
+Report an issue with this plugin
+
+
+Mina SSHD API :: Common
+Version2.15.0-161.vb_200831a_c15b_
+Provides the Common module of Apache Mina SSHD to plugins.
+Report an issue with this plugin
+
+
+Mina SSHD API :: Core
+Version2.15.0-161.vb_200831a_c15b_
+Provides the Core module of Apache Mina SSHD to plugins.
+Report an issue with this plugin
+
+
+OkHttp Plugin
+Version4.11.0-189.v976fa_d3379d6
+This plugin provides OkHttp for other plugins.
+Report an issue with this plugin
+
+
+Oracle Java SE Development Kit Installer Plugin
+Version83.v417146707a_3d
+Allows the Oracle Java SE Development Kit (JDK) to be installed via download from Oracle's website.
+Report an issue with this plugin
+
+
+OWASP Markup Formatter Plugin
+Version173.v680e3a_b_69ff3
+Uses the OWASP Java HTML Sanitizer to allow safe-seeming HTML markup to be entered in project descriptions and the like.
+Report an issue with this plugin
+
+
+PAM Authentication plugin
+Version1.12
+Adds Unix Pluggable Authentication Module (PAM) support to Jenkins
+Report an issue with this plugin
+
+
+Pipeline
+Version608.v67378e9d3db_1
+A suite of plugins that lets you orchestrate automation, simple or complex. See Pipeline as Code with Jenkins for more details.
+Report an issue with this plugin
+
+
+Pipeline Graph Analysis Plugin
+Version235.vb_a_a_36b_f248c2
+Provides a REST API to access pipeline and pipeline run data.
+Report an issue with this plugin
+
+
+Pipeline Graph View Plugin
+Version471.vd78d487a_a_1a_0
+Provides "Pipeline Graph" visualization of a pipeline job run.
+Report an issue with this plugin
+
+
+Pipeline: API
+Version1371.ve334280b_d611
+Plugin that defines Pipeline API.
+Report an issue with this plugin
+
+
+Pipeline: Basic Steps
+Version1079.vce64b_a_929c5a_
+Commonly used steps for Pipelines.
+Report an issue with this plugin
+
+
+Pipeline: Build Step
+Version567.vea_ce550ece97
+Adds the Pipeline step build to trigger builds of other jobs.
+Report an issue with this plugin
+
+
+Pipeline: Declarative
+Version2.2254.v2a_978de46f35
+An opinionated, declarative Pipeline.
+Report an issue with this plugin
+
+
+Pipeline: Declarative Extension Points API
+Version2.2254.v2a_978de46f35
+APIs for extension points used in Declarative Pipelines.
+Report an issue with this plugin
+
+
+Pipeline: GitHub Groovy Libraries
+Version65.v203688e7727e
+Allows Pipeline Groovy libraries to be loaded on the fly from GitHub.
+Report an issue with this plugin
+
+
+Pipeline: Groovy
+Version4106.v7a_8a_8176d450
+Pipeline execution engine based on continuation passing style transformation of Groovy scripts.
+Report an issue with this plugin
+
+
+Pipeline: Groovy Libraries
+Version752.vdddedf804e72
+Libraries for Pipeline scripts allowing logic to be shared across jobs.
+Report an issue with this plugin
+
+
+Pipeline: Input Step
+Version517.vf8e782ee645c
+Adds the Pipeline step input to wait for human input or approval.
+Report an issue with this plugin
+
+
+Pipeline: Job
+Version1520.v56d65e3b_4566
+Defines a new job type for pipelines and provides their generic user interface.
+Report an issue with this plugin
+
+
+Pipeline: Milestone Step
+Version127.vb_52887ca_3b_6d
+Plugin that provides the milestone step
+Report an issue with this plugin
+
+
+Pipeline: Model API
+Version2.2254.v2a_978de46f35
+Model API for Declarative Pipeline.
+Report an issue with this plugin
+
+
+Pipeline: Multibranch
+Version806.vb_b_688f609ee9
+Enhances Pipeline plugin to handle branches better by automatically grouping builds from different branches.
+Report an issue with this plugin
+
+
+Pipeline: Nodes and Processes
+Version1405.v1fcd4a_d00096
+Pipeline steps locking agents and workspaces, and running external processes that may survive a Jenkins restart or agent reconnection.
+Report an issue with this plugin
+
+
+Pipeline: SCM Step
+Version437.v05a_f66b_e5ef8
+Adds a Pipeline step to check out or update working sources from various SCMs (version control).
+Report an issue with this plugin
+
+
+Pipeline: Stage Step
+Version322.vecffa_99f371c
+Adds the Pipeline step stage to delineate portions of a build.
+Report an issue with this plugin
+
+
+Pipeline: Stage Tags Metadata
+Version2.2254.v2a_978de46f35
+Library plugin for Pipeline stage tag metadata.
+Report an issue with this plugin
+
+
+Pipeline: Step API
+Version700.v6e45cb_a_5a_a_21
+API for asynchronous build step primitive.
+Report an issue with this plugin
+
+
+Pipeline: Supporting APIs
+Version968.v8f17397e87b_8
+Common utility implementations to build Pipeline Plugin
+Report an issue with this plugin
+
+
+Plain Credentials Plugin
+Version195.vb_906e9073dee
+Allows use of plain strings and files as credentials.
+Report an issue with this plugin
+
+
+Plugin Utilities API Plugin
+Version6.1.0
+Provides utility classes that can be used to accelerate plugin development.
+Report an issue with this plugin
+
+
+Resource Disposer Plugin
+Version0.25
+Dispose resources asynchronously. Utility plugin for resources that require more retries or take a long time to delete
+Report an issue with this plugin
+
+
+SCM API Plugin
+Version704.v3ce5c542825a_
+This plugin provides a new enhanced API for interacting with SCM systems.
+Report an issue with this plugin
+
+
+Script Security Plugin
+Version1373.vb_b_4a_a_c26fa_00
+Allows Jenkins administrators to control what in-process scripts can be run by less-privileged users.
+Report an issue with this plugin
+
+
+SnakeYAML API Plugin
+Version2.3-125.v4d77857a_b_402
+This plugin provides SnakeYAML for other plugins.
+Report an issue with this plugin
+
+
+SSH Build Agents plugin
+Version3.1031.v72c6b_883b_869
+Allows to launch agents over SSH, using a Java implementation of the SSH protocol.
+Report an issue with this plugin
+
+
+SSH Credentials Plugin
+Version355.v9b_e5b_cde5003
+Allows storage of SSH credentials in Jenkins
+Report an issue with this plugin
+
+
+SSH server
+Version3.353.v2b_d33c46e970
+Adds SSH server functionality to Jenkins, exposing CLI commands through it.
+Report an issue with this plugin
+
+
+Structs Plugin
+Version343.vdcf37b_a_c81d5
+Library plugin for DSL plugins that need names for Jenkins objects.
+Report an issue with this plugin
+
+
+Theme Manager
+Version294.vf2c2fd783821
+Provides an extension point for adding user and global themes, built-in to Jenkins.
+Report an issue with this plugin
+
+
+Timestamper
+Version1.28
+Adds timestamps to the Console Output
+Report an issue with this plugin
+
+
+Token Macro Plugin
+Version444.v52de7e9c573d
+This plug-in adds reusable macro expansion capability for other plug-ins to use.
+Report an issue with this plugin
+
+
+Trilead API Plugin
+Version2.209.v0e69b_c43c245
+Trilead API Plugin provides the Trilead library to any dependent plugins in an easily update-able manner.
+Report an issue with this plugin
+
+
+Variant Plugin
+Version70.va_d9f17f859e0
+This user-invisible library plugin allows other multi-modal plugins to behave differently depending on where they run.
+Report an issue with this plugin
+
+
+Workspace Cleanup Plugin
+Version0.48
+This plugin deletes the project workspace when invoked.
+Report an issue with this plugin
