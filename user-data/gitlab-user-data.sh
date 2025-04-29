@@ -81,17 +81,6 @@ echo "9" >> /home/ec2-user/debug.log
 # Start GitLab container
 (cd /srv/gitlab && docker compose up -d)
 
-# sudo docker exec -it gitlab bash
-# sudo gitlab-ctl stop
-
-# vi /etc/gitlab/gitlab.rb
-
-# sudo gitlab-ctl reconfigure
-
-# sudo gitlab-ctl restart
-
-# sudo docker stats
-
 echo "10" >> /home/ec2-user/debug.log 
 
 # Allow firewall access

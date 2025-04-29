@@ -1,14 +1,14 @@
-export AWS_ACCESS_KEY_ID=AKIA324SXZ3XPAZZEXHM
-export AWS_SECRET_ACCESS_KEY=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
+export AWS_ACCESS_KEY_ID=AKIA324SXZ3XCYT3XCXS
+export AWS_SECRET_ACCESS_KEY=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
 
 terraform init
-
 terraform plan
-
 terraform apply
 
 # Gitlab
 sudo cat /srv/gitlab/config/initial_root_password
+
+git remote remove origin
 
 # Creating (and therefore “registering”) a new repo via the CLI
 docker exec -it gitlab bash
@@ -20,8 +20,6 @@ curl --request POST "http://localhost/api/v4/projects" \
   --header "PRIVATE-TOKEN: <your_token>" \
   --form "name=my-repo" \
   --form "namespace_id=1"
-
-curl http://localhost:80
 
 "Set SSH key.pub on gitlab"
 
@@ -35,26 +33,10 @@ curl http://localhost:80
 --- Confirm SSH is using the right private key ---
 
 netstat -tln
-
-ssh-add ~/.ssh/id_rsa
-
+ssh-add ~/.ssh/user1.pem
 ssh-add -l
-
 git remote remove origin
-
 ssh -T -p 2424 git@<Your public ip pf the instance>
-
-# OPTIONAL
-
-Edit ~/.ssh/config
-Host gitlab-local
-  HostName Your_IP_OF_instance
-  Port 2424
-  User git
-  IdentityFile ~/.ssh/id_rsa      # or ~/.ssh/gitlab, whichever you loaded
-  IdentitiesOnly yes
-
-git remote set-url origin git@gitlab-remote:root/ci-cd-gitlab.git
 
 ---- Inside gitlab ----
 
@@ -65,40 +47,9 @@ sudo docker exec -it jenkins bash -c 'cat "${JENKINS_HOME:-/var/jenkins_home}"/s
 
 Data:
 SUBSCRIPTION_ID: fd375dc1-3773-4143-8e91-347b28916b2f
-Client_id: bae66751-5d92-4a75-afb4-5afb874d7cf1
-Client_secret: q_08Q~vFsJO~wkqGbNGzdmV.atiXU6zl7ms6mbOd
-Tenant_id: 5b9d6221-8f51-46f3-8c0e-fb83ff1418d6
-
-wget http://<JENKINS_URL>/jnlpJars/jenkins-cli.jar
-
----- Using az local ----
-az keyvault secret list --vault-name terraform123 -o table
-
-          - string:
-              scope: GLOBAL
-              id: "gitlab-token-id"
-              secret: "glpat-jmZh7mLQmMEdMe6E_SkQ"
-              description: "GitLab API Token"
-
-
-          - com.microsoft.azure.util.AzureCredentials:
-              scope: GLOBAL
-              id: "azure-sp-credentials"
-              description: "Azure Service Principal for deployments"
-              subscriptionId: "fd375dc1-3773-4143-8e91-347b28916b2f"
-              clientId:       "bae66751-5d92-4a75-afb4-5afb874d7cf1"
-              clientSecret:   "q_08Q~vFsJO~wkqGbNGzdmV.atiXU6zl7ms6mbOd"
-              tenant:         "5b9d6221-8f51-46f3-8c0e-fb83ff1418d6"
-              azureEnvironmentName: "Azure"
-
-unclassified:
-  gitLabConnectionConfig:
-    connections:
-      - name: "GitLabConnection"
-        url: "http://44.199.229.236/"
-        credentialsId: "gitlab-token-id"
-        ignoreCertificateErrors: false
-        connectionTimeout: 10
+Client_id:       bae66751-5d92-4a75-afb4-5afb874d7cf1
+Client_secret:   q_08Q~vFsJO~wkqGbNGzdmV.atiXU6zl7ms6mbOd
+Tenant_id:       5b9d6221-8f51-46f3-8c0e-fb83ff1418d6
 
 cat <<EOF | sudo tee /home/ubuntu/jenkins.yaml
 credentials:
@@ -111,5 +62,30 @@ credentials:
               username: root
               password: glpat-jmZh7mLQmMEdMe6E_SkQ
               description: "GitLab root user credentials"
+
+          - string:
+              scope: GLOBAL
+              id: "gitlab-token-id"
+              secret: "glpat-jmZh7mLQmMEdMe6E_SkQ"
+              description: "GitLab API Token"
+
+          - com.microsoft.azure.util.AzureCredentials:
+              scope: GLOBAL
+              id: "azure-sp-credentials"
+              description: "Azure Service Principal for deployments"
+              subscriptionId: "0d7f73bf-5323-4407-af94-034b4ad96d5d"
+              clientId:       "af8a76d5-4c3c-4c07-8b89-fb86ac014040"
+              clientSecret:   "Us.8Q~iVZG0OWpTQ2Tf8GgwDtMQ6oEN24NuZVbFr"
+              tenant:         "8812bd4a-9c59-4186-862d-717417ef4c8a"
+              azureEnvironmentName: "Azure"
+
+unclassified:
+  gitLabConnectionConfig:
+    connections:
+      - name: "GitLabConnection"
+        url: "http://44.199.229.236/"
+        credentialsId: "gitlab-token-id"
+        ignoreCertificateErrors: false
+        connectionTimeout: 10
 
 EOF

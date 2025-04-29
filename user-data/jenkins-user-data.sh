@@ -110,7 +110,6 @@ USER jenkins
 COPY --chown=jenkins:jenkins plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
 
-
 EOF
 
 # Create docker-compose.yml file for Jenkins
@@ -134,6 +133,7 @@ services:
 volumes:
   jenkins-vol:
     driver: local
+    
 EOF
 
 # Start Jenkins container
