@@ -22,14 +22,13 @@ module "vpc" {
 
   azs              = local.azs
   public_subnets   = [cidrsubnet(local.vpc_cidr, 8, 0), cidrsubnet(local.vpc_cidr, 8, 1)]
-  private_subnets  = [cidrsubnet(local.vpc_cidr, 8, 2)]
 
   create_database_subnet_group = true
   create_igw = true
   create_multiple_public_route_tables = true
 
-  enable_nat_gateway = true
-  single_nat_gateway = true
+  enable_nat_gateway = false
+  single_nat_gateway = false
   one_nat_gateway_per_az = false
 
   tags = local.tags
